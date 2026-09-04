@@ -1,36 +1,3 @@
-"""
-message_generator.py
----------------------
-This is the ONLY file in the whole project that talks to an AI model.
-Everything else (scoring, escalation rules) is plain Python logic.
-
-WHAT CHANGED: this now uses LangChain instead of a raw API call. Two
-LangChain concepts are used here, and these are the two words to know cold:
-
-  1. PromptTemplate - a reusable prompt with "blanks" in it (like a fill-in-
-     the-blanks worksheet). Instead of building a string by hand every time
-     with f"...{name}...", you define the template ONCE with placeholders
-     like {customer_name}, and LangChain fills them in for you. This makes
-     prompts easier to reuse, test, and swap out without touching the
-     calling code.
-
-  2. Chain - LangChain's way of connecting steps together with the "|"
-     (pipe) operator: prompt | model | output_parser. Here that means:
-     "take the filled-in prompt -> send it to Claude -> take the plain
-     text out of the response." Each step feeds into the next, just like
-     piping commands in a terminal.
-
-WHY ISOLATE AI HERE, SPECIFICALLY: every decision about WHO to message,
-WHEN, and WHAT TONE is still plain Python if/else logic in scoring.py.
-LangChain is used ONLY to turn that decision into natural-sounding text.
-This means you can explain 100% of the "thinking" in the app without any
-AI vocabulary, and the AI vocabulary you DO need (PromptTemplate, chain)
-is contained to this one file.
-
-SAFE FALLBACK: if no API key is configured, or the API call fails for any
-reason, this automatically falls back to a template string instead of
-crashing. Demo never breaks on stage.
-"""
 
 import os
 

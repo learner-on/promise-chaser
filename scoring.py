@@ -1,38 +1,7 @@
-"""
-scoring.py
-----------
-This is the "brain" of the project - two scores computed with plain math
-(no ML, no external calls). This is the part you should be able to explain
-in your sleep for the demo/interview.
-
-1. RELIABILITY SCORE (0-100) - "who is this customer, historically?"
-   Based ONLY on their past behavior, not the current invoice.
-
-2. RECOVERY PROBABILITY (0-100%) - "will THIS specific invoice get paid?"
-   Based on their reliability score PLUS details of the current invoice
-   (how overdue it is, how many times they've already broken a promise
-   on this exact invoice).
-
-Why two separate numbers instead of one?
-   Reliability = a stable trait about the customer (changes slowly).
-   Recovery probability = a live, per-invoice number (changes daily as
-   the invoice gets more overdue). Judges/interviewers like this because
-   it mirrors how real credit-risk systems separate "customer risk" from
-   "transaction risk."
-"""
 
 
 def reliability_score(history):
-    """
-    history: list of booleans, True = promise kept, False = promise broken
-    Returns: score from 0 to 100
-
-    Formula (plain weighted average, no magic):
-      - base = % of promises kept, scaled to 0-100
-      - recency bonus/penalty: their LAST 2 promises matter more than old ones
-        (a customer who used to be bad but has improved recently should score
-        better than their raw average suggests - and vice versa)
-    """
+   
     if not history:
         return 50  # no data yet -> neutral starting score
 

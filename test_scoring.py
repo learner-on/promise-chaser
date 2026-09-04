@@ -1,16 +1,4 @@
-"""
-test_scoring.py
-----------------
-Simple, readable tests for scoring.py - no testing framework needed,
-just plain Python `assert` statements. This is the minimum "do you test
-your code" answer for an interview: not exhaustive, but it proves the
-core formulas behave sensibly at their edges.
 
-Run with: python test_scoring.py
-If everything passes, it prints "All tests passed." and exits normally.
-If anything fails, Python raises an AssertionError showing exactly which
-check failed - that's the whole point of using assert directly.
-"""
 
 from scoring import reliability_score, risk_tier, recovery_probability, escalation_action
 

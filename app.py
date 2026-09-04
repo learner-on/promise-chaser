@@ -1,30 +1,3 @@
-"""
-app.py
-
-The whole backend. Same routes and logic as before - the ONLY thing that
-changed is where data lives: everything now reads from and writes to
-db.py (a real SQLite database file, promise_chaser.db) instead of Python
-lists that disappeared on restart. If you compare this file to an older
-version, the business logic (scoring, escalation, automation) is
-identical - only the data-access lines changed, from things like
-`seed_data.INVOICES` to `db.get_all_invoices()`.
-
-  GET  /                        -> renders the dashboard page
-  GET  /api/invoices            -> returns all invoices + computed scores as JSON
-  POST /api/recover/<id>        -> manually force ONE escalation step right now
-  POST /api/simulate-pay/<id>   -> pretend the customer paid (for demo purposes)
-  POST /api/add-company         -> add a new company + invoice live
-  GET  /api/summary             -> totals for the top dashboard cards
-  GET  /api/audit-log           -> full audit trail
-  GET  /api/audit-log/<id>      -> audit trail filtered to ONE invoice
-
-AUTOMATIC ESCALATION (background_worker function near the bottom): a
-background thread wakes up every CHECK_INTERVAL_SECONDS and:
-  1. Flips any "promised" invoice to "broken" once its promise date passes
-  2. Escalates any "broken" invoice that's due for its next step
-This runs on its own without you clicking anything, right up until an
-invoice hits stage 4 (human handoff).
-"""
 
 import os
 import threading

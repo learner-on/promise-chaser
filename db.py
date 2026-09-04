@@ -1,32 +1,4 @@
-"""
-db.py
------
-Real, persistent storage using SQLite - Python's built-in database engine
-(no installation needed, it's part of the standard library).
 
-THE CORE IDEA: instead of keeping customers/invoices in a Python list that
-lives only in RAM (and vanishes the moment you restart the app), we store
-them as ROWS in TABLES inside a single file: promise_chaser.db. Think of
-a table like one tab in a spreadsheet - fixed columns, any number of rows.
-
-THREE TABLES:
-  customers    - one row per company (name, contact, payment history)
-  invoices     - one row per invoice (amount, dates, escalation stage)
-  actions_log  - one row per action taken (the audit trail)
-
-WHY history IS STORED AS TEXT: SQLite doesn't have a native "list" column
-type. So we convert a Python list like [True, False, True] into the text
-"1,0,1" before saving, and convert it back to a list when reading. This
-conversion happens in the two small helper functions below
-(_history_to_text / _text_to_history) - everywhere else in the app still
-just works with normal Python lists, so nothing else needs to know this
-detail.
-
-ON FIRST RUN: if promise_chaser.db doesn't exist yet, this file creates it
-and fills it with the same starter data that used to live in seed_data.py.
-On every run AFTER that, it just reuses whatever is already saved - so
-data now genuinely persists across restarts.
-"""
 
 import sqlite3
 import json

@@ -1,37 +1,4 @@
-"""
-email_sender.py
------------------
-Sends the actual recovery email using Python's built-in smtplib (no extra
-libraries needed). Uses Gmail's SMTP server as an example, but any SMTP
-provider works the same way.
 
-WHY THIS IS SAFE TO DEMO WITH:
-If you haven't set up email credentials, this automatically falls back to
-"simulation mode" - it prints what WOULD have been sent instead of actually
-sending, so the app never crashes and you can demo without setting anything
-up. Once you add real credentials, it starts actually sending.
-
-HOW TO ENABLE REAL SENDING (optional, takes 5 minutes):
-1. Use a Gmail account (or any email provider that supports SMTP).
-2. For Gmail specifically: go to https://myaccount.google.com/apppasswords
-   and generate an "App Password" (NOT your normal Gmail password - Gmail
-   blocks normal passwords for this).
-3. Set two environment variables before running the app:
-     SENDER_EMAIL = your gmail address
-     SENDER_APP_PASSWORD = the 16-character app password you generated
-   On Mac/Linux (in the terminal, before running python3 app.py):
-     export SENDER_EMAIL="youraddress@gmail.com"
-     export SENDER_APP_PASSWORD="abcd efgh ijkl mnop"
-   On Windows (Command Prompt):
-     set SENDER_EMAIL=youraddress@gmail.com
-     set SENDER_APP_PASSWORD=abcdefghijklmnop
-
-IMPORTANT FOR THE DEMO: don't email real companies' real inboxes during a
-live demo. Use your own email address as the "customer_contact" for test
-invoices, or just leave credentials unset and let it simulate - simulation
-mode is completely fine to show judges; you can explain "in production this
-would use SMTP, here's the exact code that does it."
-"""
 
 import os
 import smtplib

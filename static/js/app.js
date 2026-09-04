@@ -248,10 +248,10 @@ function showModal(result) {
   document.getElementById("message-modal").classList.remove("hidden");
 }
 
-// ---------------------------------------------------------------------
+
 // "Needs Human Attention" click-through: shows the FULL history of every
 // automated attempt made on that invoice before it got flagged.
-// ---------------------------------------------------------------------
+
 async function openHistoryModal(invoiceId) {
   const inv = allInvoices.find(i => i.id === invoiceId);
   const history = await fetchJSON(`/api/audit-log/${invoiceId}`);

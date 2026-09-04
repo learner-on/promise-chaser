@@ -1,36 +1,4 @@
-"""
-test_validation.py
---------------------
-Validates reliability_score() using a CONTROLLED SYNTHETIC EXPERIMENT,
-since a real-world labeled dataset wasn't available within this project's
-timeframe. This is a legitimate, standard validation technique - the
-same basic idea used to sanity-check any predictive formula before
-real-world data is available: simulate data where you KNOW the true
-answer, then check whether your formula can recover it.
 
-BE HONEST WHEN EXPLAINING THIS: this is a synthetic/simulated validation,
-not a real-world one. Say so plainly if asked. It still proves something
-real - that the formula's logic behaves correctly and isn't just noise -
-which is a meaningfully stronger claim than "we never checked."
-
-THE EXPERIMENT, STEP BY STEP:
-  1. Create N fake customers, each with a hidden "true_reliability"
-     (a number from 0 to 1 - e.g. 0.9 means "90% likely to keep any
-     given promise"). This is the ground truth we're trying to recover.
-  2. For each customer, SIMULATE a history of promises using their
-     true_reliability as a probability (like flipping a biased coin
-     for each promise - a coin that lands 'kept' 90% of the time for
-     a customer with true_reliability=0.9).
-  3. Run our REAL reliability_score() formula on that simulated history
-     (the formula never sees true_reliability directly - only the noisy
-     coin-flip results, exactly like in real life).
-  4. Compare: do customers with HIGHER true_reliability actually get
-     HIGHER scores from our formula, on average? We measure this with
-     a correlation coefficient (a number from -1 to 1 that says how
-     strongly two things move together; close to 1 = strong match).
-
-Run with: python test_validation.py
-"""
 
 import random
 from scoring import reliability_score
