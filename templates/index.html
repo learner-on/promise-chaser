@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Promise Chaser — AI Revenue Recovery</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="topbar-inner">
+      <h1>Promise<span class="accent">Chaser</span></h1>
+      <p class="tagline">Track broken payment promises. Recover revenue automatically. Know when to stop.</p>
+      <div class="automation-badge">
+        🔄 Automation active — checks overdue invoices every ~12s and escalates on its own, right up until a human needs to step in.
+      </div>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- Summary cards -->
+    <section class="summary-grid" id="summary-grid">
+      <div class="card summary-card">
+        <span class="label">Total Outstanding</span>
+        <span class="value" id="stat-total">—</span>
+      </div>
+      <div class="card summary-card risk">
+        <span class="label">At Risk (Broken Promises)</span>
+        <span class="value" id="stat-at-risk">—</span>
+      </div>
+      <div class="card summary-card recovered">
+        <span class="label">Recovered</span>
+        <span class="value" id="stat-recovered">—</span>
+      </div>
+      <div class="card summary-card">
+        <span class="label">Flagged for Human</span>
+        <span class="value" id="stat-handoff">—</span>
+      </div>
+    </section>
+
+    <!-- Sort control -->
+    <div class="sort-bar">
+      <span class="muted" style="font-size:13px;">Sort by:</span>
+      <select id="sort-field">
+        <option value="days_overdue">Days overdue</option>
+        <option value="amount">Amount</option>
+        <option value="recovery_probability">Recovery probability</option>
+        <option value="reliability_score">Reliability score</option>
+      </select>
+      <button class="btn-secondary" id="sort-direction">↓ High to Low</button>
+    </div>
+
+    <!-- Add Company form -->
+    <details class="section" id="add-company-section">
+      <summary><span class="toggle-icon">▸</span> + Add a Company / Invoice (live demo tool)</summary>
+      <div class="section-body">
+        <p class="muted" style="font-size:12px; margin-bottom:12px;">
+          Use this to add a real company live - e.g. type in your own email as the contact to test that recovery emails actually send.
+        </p>
+        <form id="add-company-form" class="add-form">
+          <input type="text" id="ac-name" placeholder="Company name" required />
+          <input type="text" id="ac-industry" placeholder="Industry (optional)" />
+          <input type="email" id="ac-contact" placeholder="Contact email" required />
+          <input type="number" id="ac-amount" placeholder="Invoice amount (Rs)" required />
+          <input type="number" id="ac-promise-days" placeholder="Promise due in N days (negative = already overdue)" required />
+          <input type="text" id="ac-history" placeholder="Past promises, e.g. 1,0,1,1 (1=kept,0=broken, optional)" />
+          <button type="submit" class="btn-primary">Add Company</button>
+        </form>
+        <div id="add-company-result"></div>
+      </div>
+    </details>
+
+    <section class="main-grid">
+
+      <div class="panel-column">
+
+        <details class="section" open>
+          <summary><span class="toggle-icon">▾</span> Awaiting Due Date <span class="section-count" id="count-awaiting">0</span></summary>
+          <div class="section-body" id="section-awaiting"><p class="muted">Loading...</p></div>
+        </details>
+
+        <details class="section" open>
+          <summary><span class="toggle-icon">▾</span> Active Recovery <span class="section-count" id="count-active">0</span></summary>
+          <div class="section-body" id="section-active"><p class="muted">Loading...</p></div>
+        </details>
+
+        <details class="section">
+          <summary><span class="toggle-icon">▸</span> Needs Human Attention <span class="section-count" id="count-human">0</span></summary>
+          <div class="section-body" id="section-human"><p class="muted">Loading...</p></div>
+        </details>
+
+        <details class="section">
+          <summary><span class="toggle-icon">▸</span> Recovered <span class="section-count" id="count-recovered">0</span></summary>
+          <div class="section-body" id="section-recovered"><p class="muted">Loading...</p></div>
+        </details>
+
+      </div>
+
+      <!-- Audit log -->
+      <div class="panel">
+        <h2>Audit Trail</h2>
+        <p class="muted" style="font-size:12px; margin-top:-8px;">Every action, automatic or manual, logged with a plain-English reason.</p>
+        <div id="audit-log" class="audit-log">
+          <p class="muted">Loading...</p>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- Message / history modal -->
+  <div id="message-modal" class="modal hidden">
+    <div class="modal-box">
+      <button class="modal-close" id="modal-close">×</button>
+      <h3 id="modal-title">Generated Message</h3>
+      <p id="modal-explanation" class="muted"></p>
+      <div class="message-preview" id="modal-message"></div>
+    </div>
+  </div>
+
+  <script src="/static/js/app.js"></script>
+</body>
+</html>
